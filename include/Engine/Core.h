@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include "MathUtility.h"
 
 namespace Engine {
 	/**
@@ -99,21 +100,39 @@ namespace Engine {
 		}
 
 		/********************* Multiplying Vector *********************/
-		Vector3 componentProduct(const Vector3& other) const
+		Vector3 ComponentProduct(const Vector3& other) const
 		{
 			return Vector3(x * other.x, y * other.y, z * other.z);
 		}
 
-		float dotProduct(const Vector3& other) const
+		float DotProduct(const Vector3& other) const
 		{
 			return x * other.x + y * other.y + z * other.z;
 		}
 
-		Vector3 crossProduct(const Vector3& other) const
+		/** Dot Product */
+		float operator*(const Vector3& other) const
+		{
+			return x * other.x + y * other.y + z * other.z;
+		}
+
+		Vector3 CrossProduct(const Vector3& other) const
 		{
 			return Vector3(	y * other.z - z * other.y,
 							z * other.x - x * other.z,
 							x * other.y - y * other.x );
+		}
+
+		Vector3 operator%(const Vector3& other) const
+		{
+			return Vector3(y * other.z - z * other.y,
+				z * other.x - x * other.z,
+				x * other.y - y * other.x);
+		}
+
+		void operator%=(const Vector3& other)
+		{
+			*this = CrossProduct(other);
 		}
 
 		/********************* Inline Method *********************/
@@ -132,8 +151,16 @@ namespace Engine {
 			float l = Magnitude();
 			if (l > 0)
 			{
-				(*this) *= ((float)l) / 1;
+				(*this) *= 1 / ((float)l);
 			}
+		}
+
+		/** 정규화된 벡터 반환 */
+		Vector3 Unit() const
+		{
+			Vector3 result = *this;
+			result.Normalize();
+			return result;
 		}
 
 		void AddScaledVector(const Vector3& vector, float scale)
@@ -143,13 +170,6 @@ namespace Engine {
 			z += vector.z * scale;
 		}
 
-		Vector3 unit() const
-		{
-			Vector3 result = *this;
-			result.Normalize();
-			return result;
-		}
-
 		void Invert()
 		{
 			x = -x;
@@ -157,11 +177,17 @@ namespace Engine {
 			z = -z;
 		}
 
-		void clear()
+		void Clear()
 		{
 			x = y = z = 0.f;
 		}
 
+		/** other Vector사이의 각도 */
+		float Degree(const Vector3& other) const
+		{
+			float theta = std::acos(this->Unit() * other.Unit());
+			return Rad2Deg(theta);
+		}
 	};
 
 }
