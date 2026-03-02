@@ -1,0 +1,16 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 24, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "vs2022-x64",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/Build/GameEngine",
+      "architecture": "x64"
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug", "configurePreset": "vs2022-x64", "configuration": "Debug" },
+    { "name": "release", "configurePreset": "vs2022-x64", "configuration": "Release" }
+  ]
+}

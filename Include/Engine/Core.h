@@ -51,11 +51,17 @@ namespace Engine {
 			return z;
 		}
 
+		/**
+		 * 벡터 스칼라 곱 연산
+		 */
 		Vector3 operator*(const float value) const
 		{
 			return Vector3(x * value, y * value, z * value);
 		}
 
+		/**
+		 * 벡터 스칼라 곱 대입 연산
+		 */
 		void operator*=(const float value)
 		{
 			x *= value;
@@ -110,7 +116,9 @@ namespace Engine {
 			return x * other.x + y * other.y + z * other.z;
 		}
 
-		/** Dot Product */
+		/**
+		 * Dot Product
+		 */
 		float operator*(const Vector3& other) const
 		{
 			return x * other.x + y * other.y + z * other.z;
@@ -123,6 +131,9 @@ namespace Engine {
 							x * other.y - y * other.x );
 		}
 
+		/**
+		 * Cross Product
+		 */
 		Vector3 operator%(const Vector3& other) const
 		{
 			return Vector3(y * other.z - z * other.y,
@@ -136,16 +147,20 @@ namespace Engine {
 		}
 
 		/********************* Inline Method *********************/
+		
+		/** 벡터의 크기 */
 		float Magnitude() const
 		{
 			return std::sqrt(x * x + y * y + z * z);
 		}
 
-		float SquareMagntude() const
+		/** 벡터 크기의 제곱 */
+		float SquareMagnitude() const
 		{
 			return x * x + y * y + z * z;
 		}
 
+		/** 현재 벡터를 정규화 시킨 값으로 변환 */
 		void Normalize()
 		{
 			float l = Magnitude();
@@ -163,6 +178,10 @@ namespace Engine {
 			return result;
 		}
 
+		/**
+		 * 벡터를 scale 값만큼 곱해서 추가
+		 * scaled된 벡터를 따로 생성하지않고 직접 값에 추가
+		 */
 		void AddScaledVector(const Vector3& vector, float scale)
 		{
 			x += vector.x * scale;
