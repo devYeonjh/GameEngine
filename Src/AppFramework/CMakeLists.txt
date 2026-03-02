@@ -6,7 +6,7 @@ add_library(Dx11Deps INTERFACE)
 if(WIN32)
   target_link_libraries(Dx11Deps INTERFACE
     d3d11
-    dxgi
+    user32
     d3dcompiler
   )
 endif()
@@ -16,16 +16,6 @@ endif()
 #  - Win32/DX11/ImGui 공통 코드를 한 번 컴파일해서 여러 exe가 재사용
 # ------------------------------------------------------------
 add_library(AppFrameworkObj OBJECT)
-
-# AppFramework 내부 공통 소스 (현재 폴더 내 cpp/h 자동 수집)
-file(GLOB_RECURSE APPFW_CPP CONFIGURE_DEPENDS
-  "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
-)
-file(GLOB_RECURSE APPFW_H CONFIGURE_DEPENDS
-  "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
-  "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
-)
 
 # ImGui (현재 ThirdParty/ImGui 구조에 맞춰 명시)
 set(IMGUI_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/ImGui")
@@ -44,11 +34,9 @@ set(IMGUI_BACKEND_CPP
 )
 
 target_sources(AppFrameworkObj PRIVATE
-  ${APPFW_CPP}
-  ${APPFW_H}
   ${IMGUI_CORE_CPP}
   ${IMGUI_BACKEND_CPP}
-)
+ "Application.cpp" "Renderer.cpp" "Timing.cpp")
 
 # 경고는 AppFramework에도 적용(원하면 PRIVATE로 둬도 됨)
 target_link_libraries(AppFrameworkObj PRIVATE

@@ -1,6 +1,4 @@
 add_library(EngineCore STATIC
-  Core.cpp
-  Engine.cpp
   Particle.cpp
 )
 
