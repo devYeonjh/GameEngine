@@ -7,11 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # ------------------------------------------------------------
-# Output layout: Bin/<Target>/<Config>, Lib/<Config>, Obj/<Target>/<Config>
+# Output layout: Bin/<Target>/<Config>, Lib/<Config>
 # ------------------------------------------------------------
 set(GE_BIN_DIR "${CMAKE_SOURCE_DIR}/Bin")
 set(GE_LIB_DIR "${CMAKE_SOURCE_DIR}/Lib")
-set(GE_OBJ_DIR "${CMAKE_SOURCE_DIR}/Obj")
 
 function(ge_set_outputs target)
   set_target_properties(${target} PROPERTIES
@@ -25,19 +24,9 @@ function(ge_set_outputs target)
     set_target_properties(${target} PROPERTIES
       ARCHIVE_OUTPUT_DIRECTORY_${cfg_u} "${GE_LIB_DIR}"
       LIBRARY_OUTPUT_DIRECTORY_${cfg_u} "${GE_LIB_DIR}"
-      RUNTIME_OUTPUT_DIRECTORY_${cfg_u} "${GE_BIN_DIR}/${target}/${cfg}"
+      RUNTIME_OUTPUT_DIRECTORY_${cfg_u} "${GE_BIN_DIR}/${target}"
     )
   endforeach()
-
-  # Visual Studio(MSBuild) 중간 산출물/출력 디렉토리 강제 통일
-  if(MSVC)
-    set_target_properties(${target} PROPERTIES
-      # Obj/<Target>/<Config>/
-      VS_GLOBAL_IntDir "${GE_OBJ_DIR}/${target}/$(Configuration)\\"
-      # Bin/<Target>/<Config>/  (exe 타겟에선 이미 RUNTIME_OUTPUT_DIRECTORY로도 맞지만 통일용)
-      VS_GLOBAL_OutDir "${GE_BIN_DIR}/${target}/$(Configuration)\\"
-    )
-  endif()
 endfunction()
 
 # ------------------------------------------------------------
@@ -51,9 +40,24 @@ else()
 endif()
 
 # ------------------------------------------------------------
+# console / windows app 생성 함수
+# ------------------------------------------------------------
+function(ge_add_console_exe target)
+  add_executable(${target} ${ARGN})
+  target_link_libraries(${target} PRIVATE ge_warnings)
+  ge_set_outputs(${target})
+endfunction()
+
+function(ge_add_win32_dx11_exe target)
+  add_executable(${target} WIN32 ${ARGN})
+  target_link_libraries(${target} PRIVATE ge_warnings user32 d3d11 dxgi d3dcompiler)
+  ge_set_outputs(${target})
+endfunction()
+
+
+# ------------------------------------------------------------
 # Subdirectories
 # ------------------------------------------------------------
 add_subdirectory(Src/EngineCore)
-add_subdirectory(Src/AppFramework)
-add_subdirectory(Src/Exercises)
+add_subdirectory(Src/Exercises/DX11)
 add_subdirectory(Src/Demos)
