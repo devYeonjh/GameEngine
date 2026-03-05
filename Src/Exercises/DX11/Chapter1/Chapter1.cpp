@@ -6,12 +6,11 @@
 using namespace std;
 using namespace DirectX;
 
-// XMVECTOR를 << 연산자로 출력하기 위한 오버로딩
 ostream& operator<<(ostream& os, FXMVECTOR v)
 {
-	XMFLOAT3 dest;
-	XMStoreFloat3(&dest, v);
-	os << "(" << dest.x << ", " << dest.y << ", " << dest.z << ")";
+	XMFLOAT4 dest;
+	XMStoreFloat4(&dest, v);
+	os << "(" << dest.x << ", " << dest.y << ", " << dest.z << ", " << dest.w << ")";
 	return os;
 }
 
@@ -30,10 +29,10 @@ int main()
 	cout << "v = " << v << endl;
 	cout << "w = " << w << endl;*/
 
-	XMVECTOR n = XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
+	XMVECTOR n = XMVectorSet(-2.0f, 1.0f, 0.0f, 0.0f);
 	XMVECTOR u = XMVectorSet(1.0f, 2.0f, 3.0f, 0.0f);
 	XMVECTOR v = XMVectorSet(-2.0f, 1.0f, -3.0f, 0.0f);
-	XMVECTOR w = XMVectorSet(0.707f, 0.707f, 0.0f, 0.0f);
+	XMVECTOR w = XMVectorSet(0.0f, -9.8f, 0.0f, 0.0f);
 
 	cout.setf(ios_base::boolalpha);
 
@@ -88,6 +87,34 @@ int main()
 	cout << "projW + perpW == w :\t" << equal << endl;
 	cout << "projW + perpW != w :\t" << notEqual << endl;
 	cout << "angle :\t\t\t" << angleDegrees << endl;
+
+	XMVECTOR p1 = XMVectorSet(2.0f, 2.0f, 1.0f, 0.0f);
+	XMVECTOR q1 = XMVectorSet(2.0f, -0.5f, 0.5f, 0.1f);
+	XMVECTOR u1 = XMVectorSet(1.0f, 2.0f, 4.0f, 8.0f);
+	XMVECTOR v1 = XMVectorSet(-2.0f, 1.0f, -3.0f, 2.5f);
+	XMVECTOR w1 = XMVectorSet(0.0f, XM_PIDIV4, XM_PIDIV2, XM_PI);
+
+	// 절대값
+	cout << "XMVectorAbs(v1) = " << XMVectorAbs(v1) << endl; 
+	// 코사인
+	cout << "XMVectorCos(w1) = "<< XMVectorCos(w1) << endl;
+	// 이진로그
+	cout << "XMVectorLog(u1) = " << XMVectorLog(u1) << endl;
+	// 각 요소를 제곱
+	cout << "XMVectorExp(p1) = " << XMVectorExp(p1) << endl;
+	// u1^p1
+	cout << "XMVectorPow(u1, p1) = " << XMVectorPow(u1, p1) << endl;
+	// 제곱근
+	cout << "XMVectorSqrt(u1) = " << XMVectorSqrt(u1) << endl;
+	// 각 요소의 Index로 재배치
+	cout << "XMVectorSwizzle(u1, 2, 2, 1, 3) = " << XMVectorSwizzle(u1, 2, 2, 1, 3) << endl;
+	cout << "XMVectorSwizzle(u1, 2, 1, 0, 3) = " << XMVectorSwizzle(u1, 2, 1, 0, 3) << endl;
+	// 곱셈
+	cout << "XMVectorMultiply(u1, v1) = " << XMVectorMultiply(u1, v1) << endl;
+	// 0과 1사이로 클램핑
+	cout << "XMVectorSaturate(q1) = " << XMVectorSaturate(q1) << endl;
+	// 각 요소별 최소값
+	cout << "XMVectorMin(p1, v1) = " << XMVectorMin(p1, v1) << endl;
 
 	return 0;
 }

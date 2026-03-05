@@ -1,3 +1,8 @@
 ge_add_console_exe(Chapter1
   Chapter1/Chapter1.cpp
 )
+
+ge_add_console_exe(Chapter2
+  Chapter2/Chapter2.cpp
+  Chapter2/Matrix.h
+)
