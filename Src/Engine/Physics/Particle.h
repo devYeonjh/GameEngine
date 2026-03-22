@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "Math/Vector3.h"
 
 namespace Engine {
 	/**

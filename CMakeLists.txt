@@ -40,7 +40,7 @@ else()
 endif()
 
 # ------------------------------------------------------------
-# console / windows app 생성 함수
+# Executable helper functions
 # ------------------------------------------------------------
 function(ge_add_console_exe target)
   add_executable(${target} ${ARGN})
@@ -54,10 +54,9 @@ function(ge_add_win32_dx11_exe target)
   ge_set_outputs(${target})
 endfunction()
 
-
 # ------------------------------------------------------------
 # Subdirectories
 # ------------------------------------------------------------
-add_subdirectory(Src/EngineCore)
+add_subdirectory(Src/Engine)
 add_subdirectory(Src/Exercises/DX11)
 add_subdirectory(Src/Demos)
