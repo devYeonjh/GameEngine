@@ -49,8 +49,16 @@ function(ge_add_console_exe target)
 endfunction()
 
 function(ge_add_win32_dx11_exe target)
-  add_executable(${target} WIN32 ${ARGN})
-  target_link_libraries(${target} PRIVATE ge_warnings user32 d3d11 dxgi d3dcompiler)
+  add_executable(${target} WIN32
+    "${CMAKE_SOURCE_DIR}/Src/Exercises/Main.cpp"
+    ${ARGN}
+  )
+  target_link_libraries(${target} PRIVATE 
+    ge_warnings 
+    Framework
+    user32 
+    d3dcompiler
+  )
   ge_set_outputs(${target})
 endfunction()
 
@@ -58,5 +66,5 @@ endfunction()
 # Subdirectories
 # ------------------------------------------------------------
 add_subdirectory(Src/Engine)
-add_subdirectory(Src/Exercises/DX11)
-add_subdirectory(Src/Demos)
+add_subdirectory(Src/Exercises)
+add_subdirectory(Src/Framework)

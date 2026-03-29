@@ -2,7 +2,7 @@
 
 #include "Math/Vector3.h"
 
-namespace Engine {
+namespace Engine::Physics {
 	/**
 	 * 위치와 속도는 있지만 방향성은 없는 단순한 오브젝트
 	 * 뉴턴의 운동법칙 적용
@@ -11,13 +11,13 @@ namespace Engine {
 	{
 	protected:
 		/** 월드 공간상의 위치 */
-		Vector3 position;
+		Math::FVector position;
 
 		/** 월드 공간상에서 속도 */
-		Vector3 velocity;
+		Math::FVector velocity;
 
 		/** particle의 가속도, 주로 중력가속도에 사용 */
-		Vector3 acceleration;
+		Math::FVector acceleration;
 
 		/** 
 		 * 선형 운동에 적용되는 감쇠량
@@ -79,5 +79,4 @@ namespace Engine {
 		float getInverseMass() const;
 
 	};
-
 }

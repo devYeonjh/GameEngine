@@ -3,11 +3,11 @@
 #include <cmath>
 #include "MathUtility.h"
 
-namespace Engine {
+namespace Engine::Math {
 	/**
 	 * 3차원 벡터
 	 */
-	struct Vector3
+	struct FVector
 	{
 	public:
 		float x, y, z;
@@ -20,20 +20,20 @@ namespace Engine {
 		float pad;
 
 	public:
-		Vector3() : x(0.f), y(0.f), z(0.f) {}
+		FVector() : x(0.f), y(0.f), z(0.f) {}
 
-		Vector3(const float x, const float y, const float z)
+		FVector(const float x, const float y, const float z)
 			: x(x), y(y), z(z) {
 		}
 
-		const static Vector3 GRAVITY;
-		const static Vector3 HIGH_GRAVITY;
-		const static Vector3 UP;
-		const static Vector3 RIGHT;
-		const static Vector3 OUT_OF_SCREEN;
-		const static Vector3 X;
-		const static Vector3 Y;
-		const static Vector3 Z;
+		const static FVector GRAVITY;
+		const static FVector HIGH_GRAVITY;
+		const static FVector UP;
+		const static FVector RIGHT;
+		const static FVector OUT_OF_SCREEN;
+		const static FVector X;
+		const static FVector Y;
+		const static FVector Z;
 
 	public:
 		/********************* Operator Overloading *********************/
@@ -54,9 +54,9 @@ namespace Engine {
 		/**
 		 * 벡터 스칼라 곱 연산
 		 */
-		Vector3 operator*(const float value) const
+		FVector operator*(const float value) const
 		{
-			return Vector3(x * value, y * value, z * value);
+			return FVector(x * value, y * value, z * value);
 		}
 
 		/**
@@ -69,49 +69,49 @@ namespace Engine {
 			z *= value;
 		}
 
-		Vector3 operator+(const Vector3& other) const
+		FVector operator+(const FVector& other) const
 		{
-			return Vector3(x + other.x, y + other.y, z + other.z);
+			return FVector(x + other.x, y + other.y, z + other.z);
 		}
 
-		void operator+=(const Vector3& other)
+		void operator+=(const FVector& other)
 		{
 			x += other.x;
 			y += other.y;
 			z += other.z;
 		}
 
-		Vector3 operator-(const Vector3& other) const
+		FVector operator-(const FVector& other) const
 		{
-			return Vector3(x - other.x, y - other.y, z - other.z);
+			return FVector(x - other.x, y - other.y, z - other.z);
 		}
 
-		void operator-=(const Vector3& other)
+		void operator-=(const FVector& other)
 		{
 			x -= other.x;
 			y -= other.y;
 			z -= other.z;
 		}
 
-		bool operator==(const Vector3& other) const
+		bool operator==(const FVector& other) const
 		{
 			return x == other.x &&
 				y == other.y &&
 				z == other.z;
 		}
 
-		bool operator!=(const Vector3& other) const
+		bool operator!=(const FVector& other) const
 		{
 			return !(*this == other);
 		}
 
 		/********************* Multiplying Vector *********************/
-		Vector3 ComponentProduct(const Vector3& other) const
+		FVector ComponentProduct(const FVector& other) const
 		{
-			return Vector3(x * other.x, y * other.y, z * other.z);
+			return FVector(x * other.x, y * other.y, z * other.z);
 		}
 
-		float DotProduct(const Vector3& other) const
+		float DotProduct(const FVector& other) const
 		{
 			return x * other.x + y * other.y + z * other.z;
 		}
@@ -119,14 +119,14 @@ namespace Engine {
 		/**
 		 * Dot Product
 		 */
-		float operator*(const Vector3& other) const
+		float operator*(const FVector& other) const
 		{
 			return x * other.x + y * other.y + z * other.z;
 		}
 
-		Vector3 CrossProduct(const Vector3& other) const
+		FVector CrossProduct(const FVector& other) const
 		{
-			return Vector3(	y * other.z - z * other.y,
+			return FVector(	y * other.z - z * other.y,
 							z * other.x - x * other.z,
 							x * other.y - y * other.x );
 		}
@@ -134,14 +134,14 @@ namespace Engine {
 		/**
 		 * Cross Product
 		 */
-		Vector3 operator%(const Vector3& other) const
+		FVector operator%(const FVector& other) const
 		{
-			return Vector3(y * other.z - z * other.y,
+			return FVector(y * other.z - z * other.y,
 				z * other.x - x * other.z,
 				x * other.y - y * other.x);
 		}
 
-		void operator%=(const Vector3& other)
+		void operator%=(const FVector& other)
 		{
 			*this = CrossProduct(other);
 		}
@@ -171,9 +171,9 @@ namespace Engine {
 		}
 
 		/** 정규화된 벡터 반환 */
-		Vector3 Unit() const
+		FVector Unit() const
 		{
-			Vector3 result = *this;
+			FVector result = *this;
 			result.Normalize();
 			return result;
 		}
@@ -182,7 +182,7 @@ namespace Engine {
 		 * 벡터를 scale 값만큼 곱해서 추가
 		 * scaled된 벡터를 따로 생성하지않고 직접 값에 추가
 		 */
-		void AddScaledVector(const Vector3& vector, float scale)
+		void AddScaledVector(const FVector& vector, float scale)
 		{
 			x += vector.x * scale;
 			y += vector.y * scale;
@@ -202,7 +202,7 @@ namespace Engine {
 		}
 
 		/** other Vector사이의 각도 */
-		float Degree(const Vector3& other) const
+		float Degree(const FVector& other) const
 		{
 			float theta = std::acos(this->Unit() * other.Unit());
 			return Rad2Deg(theta);

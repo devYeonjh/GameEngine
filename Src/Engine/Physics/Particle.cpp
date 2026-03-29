@@ -1,7 +1,7 @@
 #include <assert.h>
 #include "Physics/Particle.h"
 
-using namespace Engine;
+using namespace Engine::Physics;
 
 void Particle::Integrate(float duration)
 {
@@ -14,7 +14,7 @@ void Particle::Integrate(float duration)
 	position.AddScaledVector(velocity, duration);
 
 	// 힘으로 부터 가속도 업데이트 (힘을 생성할때 코드 추가)
-	Vector3 resultingAcc = acceleration;
+	Math::FVector resultingAcc = acceleration;
 
 	// 선형 가속도 업데이트
 	velocity.AddScaledVector(resultingAcc, duration);
@@ -43,7 +43,7 @@ void Particle::setMass(const float mass)
 float Particle::getMass() const
 {
 	if (inverseMass == 0)
-		return MAX;
+		return Math::MAX;
 	else
 		return 1.0f / inverseMass;
 }
