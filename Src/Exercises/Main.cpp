@@ -24,6 +24,8 @@ extern std::unique_ptr<Framework::FD3DApp> GetApplication(HINSTANCE hInstance);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance, PSTR cmdLine, int showCmd)
 {
     GD3DApp = GetApplication(hInstance);
-    GD3DApp->Init();
+
+	if (!GD3DApp->Init())
+		return 0;
     return GD3DApp->Run();
 }

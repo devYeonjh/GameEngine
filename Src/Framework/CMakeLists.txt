@@ -3,7 +3,7 @@ add_library(Framework STATIC
 	"D3DApp.h"
     "Timer.cpp"
 	"Timer.h"
-	"pch.h" )
+	"pch.h"  "DebugLog.h")
 
 target_precompile_headers(Framework PRIVATE pch.h)
 

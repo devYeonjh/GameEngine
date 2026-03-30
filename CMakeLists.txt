@@ -59,6 +59,7 @@ function(ge_add_win32_dx11_exe target)
     user32 
     d3dcompiler
   )
+  target_compile_definitions(${target} PRIVATE UNICODE _UNICODE)
   ge_set_outputs(${target})
 endfunction()
 

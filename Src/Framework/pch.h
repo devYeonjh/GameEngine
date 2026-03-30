@@ -51,6 +51,7 @@
 #include <memory>
 #include <stdexcept>
 #include <tuple>
+#include <vector>
 
 namespace DX
 {
