@@ -25,9 +25,31 @@ namespace Framework {
 
 		// Framework Method
 		// 파생된 클래스에서 구현 요구사항에 맞게 재정의한다.
-		virtual bool Init();
+
+		/**
+		 * Window 및 DirectX 초기화
+		 * InitMainWindow()로 Win32 창을 생성하고,
+		 * InitDirect3D()로 Device, DeviceContext, SwapChain,
+		 * RenderTargetView, DepthStencilView를 초기화한다.
+		 */
+		virtual bool Init();		
+		/**
+		 * 창 크기 변경 시 호출되는 함수.
+		 * SwapChain의 버퍼 크기를 재조정하고,
+		 * RenderTargetView, DepthStencilBuffer, DepthStencilView를 재생성한다.
+		 * 또한 Viewport를 현재 CanvasWidth/CanvasHeight에 맞게 재설정한다.
+		 * 초기화 시 InitDirect3D() 내부에서도 호출된다.
+		 */
 		virtual void OnResize();
+		/**
+		 * 매 프레임마다 호출되어 Scene의 상태를 갱신한다.
+		 * @param dt 이전 프레임과의 시간 간격 (초 단위, delta time)
+		 * 물리, 애니메이션, 입력 처리 등 게임 로직을 이곳에서 구현한다.
+		 */
 		virtual void UpdateScene(float dt) = 0;
+		/**
+		 * 매 프레임마다 호출되어 Scene을 렌더링한다.
+		 */
 		virtual void DrawScene() = 0;
 		virtual LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

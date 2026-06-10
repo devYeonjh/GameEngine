@@ -34,7 +34,7 @@ endfunction()
 # ------------------------------------------------------------
 add_library(ge_warnings INTERFACE)
 if(MSVC)
-  target_compile_options(ge_warnings INTERFACE /W4 /permissive- /EHsc)
+  target_compile_options(ge_warnings INTERFACE /W4 /permissive- /EHsc /utf-8)
 else()
   target_compile_options(ge_warnings INTERFACE -Wall -Wextra -Wpedantic)
 endif()

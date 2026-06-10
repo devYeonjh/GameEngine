@@ -124,6 +124,16 @@ void Chapter4::DrawScene()
 	DeviceContext->ClearRenderTargetView(RenderTargetView.Get(), reinterpret_cast<const float*>(&DirectX::Colors::Blue));
 	DeviceContext->ClearDepthStencilView(DepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
+	D3D11_VIEWPORT vp;
+	vp.TopLeftX = 100.0f;
+	vp.TopLeftY = 100.0f;
+	vp.Width = 500.0f;
+	vp.Height = 400.0f;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+
+	DeviceContext->RSSetViewports(1, &vp);
+
 	ThrowIfFailed(SwapChain->Present(0, 0));
 }
 
