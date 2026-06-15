@@ -1,16 +1,20 @@
 #pragma once
 
 #include "pch.h"
-#include "Timer.h" 
+#include "Timer.h"
+#include "D3Dutil.h"
 
 namespace Framework {
 
 	class FD3DApp
 	{
 	public:
-		FD3DApp(HINSTANCE hInstance);
+		// 생성자의 암시적 형변환을 막음
+		explicit FD3DApp(HINSTANCE hInstance);
 		virtual ~FD3DApp() = default;
 
+		// 윈도우 핸들, Direct3D 디바이스, 스왑 체인처럼 프로세스/OS 리소스와
+		// 직접 연결된 객체를 소유하므로 애플리케이션 인스턴스의 복사와 이동을 금지한다.
 		FD3DApp(const FD3DApp&) = delete;
 		FD3DApp& operator=(const FD3DApp&) = delete;
 		

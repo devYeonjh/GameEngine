@@ -1,6 +1,5 @@
 #include "D3DApp.h"
 #include <WindowsX.h>
-#include <sstream>
 #include "DebugLog.h"
 
 using namespace Framework;

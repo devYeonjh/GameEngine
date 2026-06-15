@@ -1,5 +1,4 @@
 #include "D3DApp.h"
-#include <sstream>
 #include "DebugLog.h"
 
 using namespace Framework;

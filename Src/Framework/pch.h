@@ -40,6 +40,7 @@
 
 #include <d3d11_1.h>
 #include <dxgi1_2.h>
+#include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 
@@ -52,6 +53,8 @@
 #include <stdexcept>
 #include <tuple>
 #include <vector>
+#include <sstream>
+#include <fstream>
 
 namespace DX
 {

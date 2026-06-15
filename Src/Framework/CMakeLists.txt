@@ -3,7 +3,7 @@ add_library(Framework STATIC
 	"D3DApp.h"
     "Timer.cpp"
 	"Timer.h"
-	"pch.h"  "DebugLog.h")
+	"pch.h"  "DebugLog.h"  "D3DUtil.h" "DemoPathUtil.h" "GeometryGenerator.cpp" "GeometryGenerator.h")
 
 target_precompile_headers(Framework PRIVATE pch.h)
 
